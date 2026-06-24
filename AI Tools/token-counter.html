@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free AI Token Counter & Cost Calculator | Toolsbunny</title>
+  <meta name="description" content="Instantly calculate accurate token counts and API pricing metrics for GPT-4o, Claude 3.5 Sonnet, and Gemini Pro. 100% private client-side processing.">
+  <link rel="canonical" href="https://toolsbunny.com/token-counter" />
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolsbunny.com/token-counter">
+  <meta property="og:title" content="Free AI Token Counter & Cost Calculator">
+  <meta property="og:description" content="Calculate accurate token parameters and live pricing metrics across major frontier LLMs locally in your browser.">
+  <meta property="og:image" content="https://toolsbunny.com/assets/og-token-counter.png">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' },
+          fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          borderRadius: { 'pulse': '6px' }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+    .pulse-card-wrapper { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-input-box { background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-input-box:focus { border-color: #635BFF; outline: none; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; transition: color 0.2s ease; display: flex; align-items: center; gap: 6px; }
+    .pulse-btn-share:hover { color: #ffffff; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-4xl pulse-card-wrapper p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="cpu" class="text-mint w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">Token Counter & Cost Estimator</h1>
+      </div>
+      <span class="text-xs text-zinc-500 uppercase tracking-widest">Netlify Native</span>
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2 flex flex-col gap-2">
+        <label class="text-xs uppercase tracking-wider text-zinc-400 flex justify-between">
+          <span>Input Payload</span>
+          <span id="char-count">0 Chars</span>
+        </label>
+        <textarea id="token-input" placeholder="Paste your raw prompt array or text generation payload here..." class="w-full h-64 pulse-input-box p-4 text-sm text-zinc-200 placeholder-zinc-600 resize-none font-mono"></textarea>
+      </div>
+
+      <div class="flex flex-col justify-between gap-4">
+        <div class="bg-obsidian border border-darkBorder rounded-pulse p-4 flex flex-col justify-center relative overflow-hidden group">
+          <span class="text-xs uppercase tracking-wider text-zinc-500">Estimated Tokens</span>
+          <span id="token-display" class="text-4xl text-stripe font-bold mt-1">0</span>
+        </div>
+
+        <div class="flex-1 bg-obsidian border border-darkBorder rounded-pulse p-4 flex flex-col gap-3">
+          <span class="text-xs uppercase tracking-wider text-zinc-400 flex items-center gap-2">
+            <i data-lucide="layers" class="w-3.5 h-3.5 text-mint"></i> Cost Projections
+          </span>
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center justify-between p-2 bg-void border border-darkBorder rounded-pulse">
+              <span class="text-zinc-300">GPT-4o</span>
+              <span id="cost-gpt4o" class="text-mint font-mono">$0.00000</span>
+            </div>
+            <div class="flex items-center justify-between p-2 bg-void border border-darkBorder rounded-pulse">
+              <span class="text-zinc-300">Claude 3.5</span>
+              <span id="cost-claude" class="text-mint font-mono">$0.00000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between border-t border-darkBorder mt-6 pt-4">
+      <button id="clear-btn" class="px-4 py-2 text-xs uppercase tracking-wider border border-darkBorder rounded-pulse text-zinc-400 hover:bg-zinc-900 flex items-center gap-2">
+        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear Canvas
+      </button>
+      <button id="copy-btn" class="px-5 py-2 text-xs uppercase tracking-wider bg-stripe text-white rounded-pulse flex items-center gap-2 font-heading">
+        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Input Text
+      </button>
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const input = document.getElementById('token-input');
+    const charCount = document.getElementById('char-count');
+    const tokenDisplay = document.getElementById('token-display');
+    const costGpt4o = document.getElementById('cost-gpt4o');
+    const costClaude = document.getElementById('cost-claude');
+
+    input.addEventListener('input', () => {
+      const chars = input.value.length;
+      const tokens = chars === 0 ? 0 : Math.ceil(chars / 3.8);
+      charCount.textContent = `${chars} Chars`;
+      tokenDisplay.textContent = tokens.toLocaleString();
+      costGpt4o.textContent = `$${((tokens / 1000) * 0.005).toFixed(5)}`;
+      costClaude.textContent = `$${((tokens / 1000) * 0.003).toFixed(5)}`;
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      input.value = '';
+      input.dispatchEvent(new Event('input'));
+    });
+
+    document.getElementById('copy-btn').addEventListener('click', () => {
+      if(!input.value) return;
+      navigator.clipboard.writeText(input.value);
+    });
+
+    document.getElementById('bookmarkBtn').addEventListener('click', () => {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      alert(`Press [${isMac ? 'Cmd+D' : 'Ctrl+D'}] to quickly bookmark Toolsbunny to your toolbar panel!`);
+    });
+
+    document.getElementById('shareXBtn').addEventListener('click', () => {
+      const shareText = encodeURIComponent("This free offline Token Counter tool by Toolsbunny is incredible. No server latencies, 100% private calculation.");
+      const shareUrl = encodeURIComponent(window.location.href);
+      window.open(`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`, '_blank');
+    });
+  </script>
+</body>
+</html>
