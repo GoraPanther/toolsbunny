@@ -1,108 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toolsbunny | Free Privacy-First Micro-SaaS Tools Suite</title>
-    <meta name="description" content="Access free, hyper-fast, client-side tools built directly for developers, creators, and professionals. 100% serverless and private.">
+    <title>Toolsbunny | Minimalist Utilities</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', amberGold: '#FFB800', darkBorder: '#2A2A35' },
-                    fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        .snap-section { height: 100vh; scroll-snap-align: start; }
+        .snap-container { scroll-snap-type: y mandatory; overflow-y: scroll; height: 100vh; }
+    </style>
 </head>
-<body class="bg-obsidian text-[#E4E4E7] min-h-screen font-mono p-6">
+<body class="bg-black text-white font-['Space_Grotesk'] snap-container">
 
-    <header class="max-w-6xl mx-auto text-center pt-20 pb-12 px-4">
-        <h1 class="text-4xl md:text-6xl font-heading font-bold text-white tracking-tight mb-4">
-            MINIMALIST UTILITIES.<br><span class="text-stripe">ZERO SIGNUPS.</span>
-        </h1>
-        <p class="text-zinc-500 max-w-xl mx-auto text-sm">
-            Fast, secure micro-tools running completely inside your browser memory layout array. 
-        </p>
-    </header>
-
-    <main class="max-w-6xl mx-auto px-4 pb-24 mt-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            <div class="bg-void border border-darkBorder p-6 rounded-md flex flex-col justify-between">
-                <div>
-                    <h2 class="text-xl font-heading text-stripe uppercase tracking-wide mb-4">🤖 AI Tools</h2>
-                    <ul class="space-y-2 text-sm text-zinc-400">
-                        <li><a href="/developers/token-counter.html" class="hover:text-white hover:underline">→ Token Counter & Cost Calculator</a></li>
- <li><a href="/developers/system-prompt-injector.html" class="hover:text-white hover:underline">→ System Prompt Injector</a></li>
-<li><a href="/developers/text-stripper.html" class="hover:text-white hover:underline">→ Markdown & LaTeX Stripper</a></li>
-<li><a href="/developers/prompt-generator.html" class="hover:text-white hover:underline">→ Prompt Variations Generator</a></li>
-<li><a href="/developers/text-diff-tool.html" class="hover:text-white hover:underline">→ AI Output Diff Space</a></li>
-<li><a href="/developers/prompt-chunker.html" class="hover:text-white hover:underline">→ Smart Prompt Chunking Station</a></li>
-<li><a href="/developers/tone-analyzer.html" class="hover:text-white hover:underline">→ Tone & Readability Dashboard</a></li>
-<li><a href="/developers/chat-log-formatter.html" class="hover:text-white hover:underline">→ Chat History Payload Formatter</a></li>
-<li><a href="/developers/image-base64-resizer.html" class="hover:text-white hover:underline">→ Vision API Image Optimizer</a></li>
-<li><a href="/developers/parameter-visualizer.html" class="hover:text-white hover:underline">→ Hyperparameter Visualizer</a></li>
-<li><a href="/developers/embedding-distance.html" class="hover:text-white hover:underline">→ Local Embedding Similarity Calculator</a></li>
-<li><a href="/developers/json-schema-validator.html" class="hover:text-white hover:underline">→ JSON Structured Schema Lint Space</a></li>
-<li><a href="/developers/csv-dataset-factory.html" class="hover:text-white hover:underline">→ CSV Few-Shot Dataset Factory</a></li>
-<li><a href="/developers/parameter-cheat-sheet.html" class="hover:text-white hover:underline">→ System Parameter Cheat Sheet</a></li>
-<li><a href="/developers/api-status-monitor.html" class="hover:text-white hover:underline">→ API Infrastructure Status Monitor</a></li>
-                        </ul>
-                </div>
-            </div>
-
-            <div class="bg-void border border-darkBorder p-6 rounded-md flex flex-col justify-between">
-                <div>
-                    <h2 class="text-xl font-heading text-mint uppercase tracking-wide mb-4">✨ Content Creators</h2>
-                    <ul class="space-y-2 text-sm text-zinc-400">
-                        <li><a href="/creators/title-hook-previewer.html" class="hover:text-white hover:underline">→ Title & Hook A/B Tester & Previewer</a></li>
-<li><a href="/creators/script-read-time-calculator.html" class="hover:text-white hover:underline">→ Dynamic Video Script Read-Time Calculator</a></li>
-<li><a href="/creators/thumbnail-contrast-tester.html" class="hover:text-white hover:underline">→ Thumbnail Color Contrast & "Squint Test" Simulator</a></li>
-<li><a href="/creators/social-character-counter.html" class="hover:text-white hover:underline">→ Multi-Platform Social Media Character Counter</a></li>
-<li><a href="/creators/aspect-ratio-calculator.html" class="hover:text-white hover:underline">→ Video Frame Aspect Ratio & Resolution Calculator</a></li>
-<li><a href="/creators/shorts-safe-zone-tester.html" class="hover:text-white hover:underline">→ YouTube Shorts & Reels Safe Zone Tester</a></li>
-<li><a href="/creators/video-bitrate-calculator.html" class="hover:text-white hover:underline">→ Video File Size & Bitrate Target Space Calculator</a></li>
-<li><a href="/creators/content-concept-spinner.html" class="hover:text-white hover:underline">→ Interactive Video Script & Content Concept Spinner</a></li>
-<li><a href="/creators/description-template-generator.html" class="hover:text-white hover:underline">→ YouTube Description Template Generator & Formatter</a></li>
-<li><a href="/creators/cpm-earnings-forecaster.html" class="hover:text-white hover:underline">→ YouTube Creator CPM & Earnings Forecasting Matrix</a></li>
-<li><a href="/creators/subtitle-caption-sanitizer.html" class="hover:text-white hover:underline">→ SRT/VTT Subtitle & Caption Text Sanitizer</a></li>
-<li><a href="/creators/retention-curve-plotter.html" class="hover:text-white hover:underline">→ Video Metric Retrospective Matrix (Retention Plotter)</a></li>
-<li><a href="/creators/tag-csv-array-builder.html" class="hover:text-white hover:underline">→ YouTube Tag & Meta Keyword Array Extractor</a></li>
-<li><a href="/creators/sponsor-pacing-tracker.html" class="hover:text-white hover:underline">→ Sponsor Integration Pacing & Ad Read Marker Tracker</a></li>
-<li><a href="/creators/deployment-manifest-checklist.html" class="hover:text-white hover:underline">→ Cross-Platform Video Distribution Checklist Array</a></li>
-                        </ul>
-                </div>
-            </div>
-
-            <div class="bg-void border border-darkBorder p-6 rounded-md flex flex-col justify-between">
-                <div>
-                    <h2 class="text-xl font-heading text-amberGold uppercase tracking-wide mb-4">🌐 Digital Users</h2>
-                    <ul class="space-y-2 text-sm text-zinc-400">
-                        <li><a href="/digital-users/prompt-optimizer.html" class="hover:text-white hover:underline">→ AI Prompt Optimizer & Token Shrinker</a></li>
-<li><a href="/digital-users/data-cleaner.html" class="hover:text-white hover:underline">→ CSV/JSON Raw Data Cleaner & Visual Mapper</a></li>
-<li><a href="/digital-users/svg-optimizer.html" class="hover:text-white hover:underline">→ Smart SVG Optimizer & Inline React Code Injector</a></li>
-<li><a href="/digital-users/pdf-redactor.html" class="hover:text-white hover:underline">→ Web-Safe PDF Redactor & Contract Sanitizer</a></li>
-<li><a href="/digital-users/theme-generator.html" class="hover:text-white hover:underline">→ Universal Dynamic CSS Theme Generator</a></li>
-<li><a href="/digital-users/meta-debugger.html" class="hover:text-white hover:underline">→ Meta Tag Debugger & Social Share Simulator</a></li>
-<li><a href="/digital-users/security-auditor.html" class="hover:text-white hover:underline">→ Browser Client-Side Hash & Password Auditor</a></li>
-<li><a href="/digital-users/markdown-converter.html" class="hover:text-white hover:underline">→ Markdown to Clean Semantic HTML / PDF Converter</a></li>
-<li><a href="/digital-users/font-compressor.html" class="hover:text-white hover:underline">→ Advanced Multi-Format Font Compressor & Subsetter</a></li>
-<li><a href="/digital-users/json-to-typescript.html" class="hover:text-white hover:underline">→ JSON to TypeScript Interface Automated Engine</a></li>
-<li><a href="/digital-users/timezone-matcher.html" class="hover:text-white hover:underline">→ Remote Team "Best Meeting Window" Calculator</a></li>
-<li><a href="/digital-users/fluid-typography.html" class="hover:text-white hover:underline">→ Responsive Fluid Typography & Clamp Calculator</a></li>
-<li><a href="/digital-users/sql-formatter.html" class="hover:text-white hover:underline">→ SQL Query Prettifier & Error Diagnostic Console</a></li>
-<li><a href="/digital-users/regex-tester.html" class="hover:text-white hover:underline">→ Regex Playground & Interactive String Explainer</a></li>
-<li><a href="/digital-users/og-image-builder.html" class="hover:text-white hover:underline">→ Dynamic Open-Graph (OG) Image Automation Template</a></li>
-                        </ul>
-                </div>
-            </div>
-
+    <section class="snap-section flex flex-col items-center justify-center text-center p-10">
+        <h1 class="text-7xl font-bold tracking-tighter mb-4">TOOLSBUNNY</h1>
+        <p class="text-xl text-zinc-500">Minimalist utilities. Zero signups.</p>
+        <div class="mt-12 flex gap-6">
+            <a href="#ai" class="bg-white text-black px-10 py-3 rounded-full font-bold hover:bg-zinc-200">AI Tools</a>
+            <a href="#creators" class="bg-zinc-900 text-white px-10 py-3 rounded-full font-bold hover:bg-zinc-800">Creators</a>
         </div>
-    </main>
+    </section>
+
+    <section id="ai" class="snap-section flex flex-col items-center justify-center p-10 border-t border-zinc-900">
+        <h2 class="text-5xl font-bold mb-12 text-[#635BFF]">AI Tools</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-6 text-sm text-zinc-400 max-w-4xl">
+            <a href="/developers/token-counter.html" class="hover:text-white transition">→ Token Counter</a>
+            <a href="/developers/system-prompt-injector.html" class="hover:text-white transition">→ System Prompt Injector</a>
+            <a href="/developers/text-stripper.html" class="hover:text-white transition">→ Markdown/LaTeX Stripper</a>
+            <a href="/developers/prompt-generator.html" class="hover:text-white transition">→ Prompt Variations</a>
+            <a href="/developers/text-diff-tool.html" class="hover:text-white transition">→ AI Output Diff</a>
+            <a href="/developers/prompt-chunker.html" class="hover:text-white transition">→ Prompt Chunker</a>
+            <a href="/developers/tone-analyzer.html" class="hover:text-white transition">→ Tone Analyzer</a>
+            <a href="/developers/chat-log-formatter.html" class="hover:text-white transition">→ Chat Log Formatter</a>
+            <a href="/developers/image-base64-resizer.html" class="hover:text-white transition">→ Vision Image Optimizer</a>
+            <a href="/developers/parameter-visualizer.html" class="hover:text-white transition">→ Hyperparameter Visualizer</a>
+            <a href="/developers/embedding-distance.html" class="hover:text-white transition">→ Embedding Distance</a>
+            <a href="/developers/json-schema-validator.html" class="hover:text-white transition">→ JSON Schema Validator</a>
+            <a href="/developers/csv-dataset-factory.html" class="hover:text-white transition">→ CSV Dataset Factory</a>
+            <a href="/developers/parameter-cheat-sheet.html" class="hover:text-white transition">→ Parameter Cheat Sheet</a>
+            <a href="/developers/api-status-monitor.html" class="hover:text-white transition">→ API Status Monitor</a>
+        </div>
+    </section>
+
+    <section id="creators" class="snap-section flex flex-col items-center justify-center p-10 border-t border-zinc-900">
+        <h2 class="text-5xl font-bold mb-12 text-[#00FFC2]">Creators</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-6 text-sm text-zinc-400 max-w-4xl">
+            <a href="/creators/title-hook-previewer.html" class="hover:text-white transition">→ Title Hook Tester</a>
+            <a href="/creators/script-read-time-calculator.html" class="hover:text-white transition">→ Read Time Calc</a>
+            <a href="/creators/thumbnail-contrast-tester.html" class="hover:text-white transition">→ Thumbnail Contrast</a>
+            <a href="/creators/social-character-counter.html" class="hover:text-white transition">→ Char Counter</a>
+            <a href="/creators/aspect-ratio-calculator.html" class="hover:text-white transition">→ Aspect Ratio Calc</a>
+            <a href="/creators/shorts-safe-zone-tester.html" class="hover:text-white transition">→ Shorts Safe Zone</a>
+            <a href="/creators/video-bitrate-calculator.html" class="hover:text-white transition">→ Bitrate Calculator</a>
+            <a href="/creators/content-concept-spinner.html" class="hover:text-white transition">→ Concept Spinner</a>
+            <a href="/creators/description-template-generator.html" class="hover:text-white transition">→ Desc Generator</a>
+            <a href="/creators/cpm-earnings-forecaster.html" class="hover:text-white transition">→ CPM Forecaster</a>
+            <a href="/creators/subtitle-caption-sanitizer.html" class="hover:text-white transition">→ Caption Sanitizer</a>
+            <a href="/creators/retention-curve-plotter.html" class="hover:text-white transition">→ Retention Plotter</a>
+            <a href="/creators/tag-csv-array-builder.html" class="hover:text-white transition">→ Tag CSV Builder</a>
+            <a href="/creators/sponsor-pacing-tracker.html" class="hover:text-white transition">→ Sponsor Tracker</a>
+            <a href="/creators/deployment-manifest-checklist.html" class="hover:text-white transition">→ Deployment Checklist</a>
+        </div>
+    </section>
+
+    <section id="digital" class="snap-section flex flex-col items-center justify-center p-10 border-t border-zinc-900">
+        <h2 class="text-5xl font-bold mb-12 text-[#FFB800]">Digital Users</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-6 text-sm text-zinc-400 max-w-4xl">
+            <a href="/digital-users/prompt-optimizer.html" class="hover:text-white transition">→ Prompt Optimizer</a>
+            <a href="/digital-users/data-cleaner.html" class="hover:text-white transition">→ Data Cleaner</a>
+            <a href="/digital-users/svg-optimizer.html" class="hover:text-white transition">→ SVG Optimizer</a>
+            <a href="/digital-users/pdf-redactor.html" class="hover:text-white transition">→ PDF Redactor</a>
+            <a href="/digital-users/theme-generator.html" class="hover:text-white transition">→ CSS Theme Generator</a>
+            <a href="/digital-users/meta-debugger.html" class="hover:text-white transition">→ Meta Debugger</a>
+            <a href="/digital-users/security-auditor.html" class="hover:text-white transition">→ Security Auditor</a>
+            <a href="/digital-users/markdown-converter.html" class="hover:text-white transition">→ Markdown Converter</a>
+            <a href="/digital-users/font-compressor.html" class="hover:text-white transition">→ Font Compressor</a>
+            <a href="/digital-users/json-to-typescript.html" class="hover:text-white transition">→ JSON to TS</a>
+            <a href="/digital-users/timezone-matcher.html" class="hover:text-white transition">→ Timezone Matcher</a>
+            <a href="/digital-users/fluid-typography.html" class="hover:text-white transition">→ Fluid Typography</a>
+            <a href="/digital-users/sql-formatter.html" class="hover:text-white transition">→ SQL Formatter</a>
+            <a href="/digital-users/regex-tester.html" class="hover:text-white transition">→ Regex Tester</a>
+            <a href="/digital-users/og-image-builder.html" class="hover:text-white transition">→ OG Image Builder</a>
+        </div>
+    </section>
 
     <script src="/global.js"></script>
 </body>
