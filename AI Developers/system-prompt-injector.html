@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced System Prompt Injector & Customizer | Toolsbunny</title>
+  <meta name="description" content="Structure raw prompts effortlessly into optimized, framework-driven LLM instructions. Compliant with top engineering guidelines.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' }, fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, borderRadius: { 'pulse': '6px' } } }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    .pulse-card-wrapper { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-select-box, .pulse-textarea { background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #D4D4D8; }
+    .pulse-select-box:focus, .pulse-textarea:focus { border-color: #635BFF; outline: none; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; }
+    .pulse-btn-share:hover { color: #ffffff; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-4xl pulse-card-wrapper p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="terminal" class="text-stripe w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">System Prompt Injector</h1>
+      </div>
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="text-xs uppercase tracking-wider text-zinc-400 block mb-2">Preset Agent Persona</label>
+          <select id="persona-select" class="w-full pulse-select-box p-2.5 text-xs">
+            <option value="dev">Senior Software Architect</option>
+            <option value="copywriter">Conversion Copywriter</option>
+            <option value="concise">Absolute Minimalist</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs uppercase tracking-wider text-zinc-400 block mb-2">Formatting Constraints</label>
+          <select id="format-select" class="w-full pulse-select-box p-2.5 text-xs">
+            <option value="markdown">Structured Markdown</option>
+            <option value="json">Raw Valid JSON Objects Only</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="md:col-span-2 space-y-4">
+        <textarea id="user-task" placeholder="Type your core prompt goal here..." class="w-full h-28 pulse-textarea p-3 text-sm"></textarea>
+        <textarea id="output-compiled" readonly placeholder="Compiled injection framework..." class="w-full h-32 pulse-textarea p-3 text-xs text-mint opacity-80"></textarea>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-end border-t border-darkBorder mt-6 pt-4">
+      <button id="copy-compiled" class="px-5 py-2 text-xs uppercase tracking-wider bg-stripe text-white rounded-pulse font-heading shadow-lg">
+        <i data-lucide="copy" class="w-3.5 h-3.5 inline mr-1"></i> Copy Injected Prompt
+      </button>
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const personas = {
+      dev: "You are a Senior Software Architect. Provide production-grade code adhering to structural clean patterns.",
+      copywriter: "You are an Elite Conversion Copywriter. Write compelling copy tailored to conversion dynamics.",
+      concise: "Respond with ultimate brevity. Eliminate salutations, pleasantries, transitions, and informational fluff."
+    };
+    const formats = {
+      markdown: "Format your entire output using scannable Markdown structures.",
+      json: "Output exclusively valid, raw RFC-compliant JSON objects without markdown fences."
+    };
+
+    const taskInput = document.getElementById('user-task');
+    const personaSelect = document.getElementById('persona-select');
+    const formatSelect = document.getElementById('format-select');
+    const outputCompiled = document.getElementById('output-compiled');
+
+    function compile() {
+      const task = taskInput.value.trim();
+      if(!task) { outputCompiled.value = ""; return; }
+      outputCompiled.value = `[SYSTEM PARADIGM]\n${personas[personaSelect.value]}\n\n[CONSTRAINTS]\n${formats[formatSelect.value]}\n\n[OBJECTIVE]\n${task}`;
+    }
+
+    taskInput.addEventListener('input', compile);
+    personaSelect.addEventListener('change', compile);
+    formatSelect.addEventListener('change', compile);
+
+    document.getElementById('copy-compiled').addEventListener('click', () => {
+      if(!outputCompiled.value) return;
+      navigator.clipboard.writeText(outputCompiled.value);
+    });
+
+    document.getElementById('bookmarkBtn').addEventListener('click', () => {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      alert(`Press [${isMac ? 'Cmd+D' : 'Ctrl+D'}] to save this prompt injector template generator!`);
+    });
+
+    document.getElementById('shareXBtn').addEventListener('click', () => {
+      const shareText = encodeURIComponent("Stop rewriting system guidelines manually. Use this client-side prompt constructor:");
+      window.open(`https://twitter.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+    });
+  </script>
+</body>
+</html>

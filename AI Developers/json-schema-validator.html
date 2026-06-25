@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline JSON Schema Validator & Structural Formatter | Toolsbunny</title>
+  <meta name="description" content="Verify syntax architecture consistency on complex JSON objects locally in your browser workspace. Zero dependencies.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' }, fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, borderRadius: { 'pulse': '6px' } } }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    .pulse-base-box { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-code-area { background-color: #080808; border: 1px solid #2A2A35; color: #D4D4D8; outline: none; font-family: monospace; resize: none; border-radius: 6px; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-4xl pulse-base-box p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="braces" class="text-stripe w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">JSON Structured Schema Lint Space</h1>
+      </div>
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <textarea id="json-box" placeholder='{"status": "active", "nodes": [1,2,3]}' class="w-full h-40 pulse-code-area p-3 text-xs mb-4"></textarea>
+    
+    <div class="flex items-center justify-between">
+      <button id="fmt-btn" class="px-5 py-2 bg-stripe text-white font-heading text-xs tracking-wider uppercase rounded-pulse">Format & Validate</button>
+      <span id="st-msg" class="text-xs font-bold text-zinc-500 uppercase tracking-widest">Standby</span>
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const bx = document.getElementById('json-box'); const st = document.getElementById('st-msg');
+    document.getElementById('fmt-btn').addEventListener('click', () => {
+      const val = bx.value.trim(); if(!val) return;
+      try { bx.value = JSON.stringify(JSON.parse(val), null, 2); st.textContent = "Valid Configuration Structure Structure System"; st.className = "text-xs font-bold text-mint uppercase tracking-widest"; }
+      catch(e) { st.textContent = `Syntax Error: ${e.message}`; st.className = "text-xs font-bold text-red-500 uppercase tracking-widest"; }
+    });
+    document.getElementById('bookmarkBtn').addEventListener('click', () => alert("Lint sandbox parameters bookmarked."));
+    document.getElementById('shareXBtn').addEventListener('click', () => window.open('https://twitter.com/intent/tweet', '_blank'));
+  </script>
+</body>
+</html>

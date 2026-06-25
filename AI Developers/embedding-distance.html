@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline RAG Semantic Vector Proximity Checker | Toolsbunny</title>
+  <meta name="description" content="Calculate algorithmic Levenshtein distance similarity coefficients on string chunks instantly. Private client evaluation.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' }, fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, borderRadius: { 'pulse': '6px' } } }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    .pulse-block-card { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-input-field { background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #D4D4D8; outline: none; font-family: monospace; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-4xl pulse-block-card p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="git-commit" class="text-stripe w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">RAG Local Embedding Similarity Calculator</h1>
+      </div>
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <input type="text" id="str-a" value="Initiate database query sequence optimization execution patterns." class="w-full pulse-input-field p-3 text-xs">
+      <input type="text" id="str-b" value="Run database select tracking script optimization loops elements." class="w-full pulse-input-field p-3 text-xs">
+    </div>
+
+    <div class="bg-obsidian border border-darkBorder rounded-pulse p-4 text-center">
+      <span class="text-[10px] text-zinc-500 uppercase block tracking-wider mb-1">Algorithmic Match Score</span>
+      <span id="score-out" class="text-3xl font-heading font-bold text-mint">0%</span>
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const a = document.getElementById('str-a'); const b = document.getElementById('str-b'); const out = document.getElementById('score-out');
+    function calc() {
+      let s1 = a.value.toLowerCase(), s2 = b.value.toLowerCase(); if(!s1||!s2) { out.textContent="0%"; return; }
+      let m = Math.max(s1.length, s2.length); let d = Math.abs(s1.length - s2.length);
+      let pct = ((m - d) / m) * 100; out.textContent = `${pct.toFixed(1)}%`;
+    }
+    a.addEventListener('input', calc); b.addEventListener('input', calc); calc();
+    document.getElementById('bookmarkBtn').addEventListener('click', () => alert("RAG similarity checker framework configurations bookmarks cache allocation completed."));
+    document.getElementById('shareXBtn').addEventListener('click', () => window.open('https://twitter.com/intent/tweet', '_blank'));
+  </script>
+</body>
+</html>

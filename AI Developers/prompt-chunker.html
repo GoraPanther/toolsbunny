@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Context Window Character Counter & Text Splitter | Toolsbunny</title>
+  <meta name="description" content="Calculate real-time character metadata parameters and split oversized prompt configurations into systematic pipeline nodes.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' }, fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, borderRadius: { 'pulse': '6px' } } }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    .pulse-container { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-field { background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #D4D4D8; outline: none; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-4xl pulse-container p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="scissors" class="text-stripe w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">Smart Prompt Chunking Station</h1>
+      </div>
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <label class="text-xs uppercase tracking-wider text-zinc-400 block mb-2">Max Chunk Characters</label>
+        <input type="number" id="chunk-max" value="3000" class="w-full pulse-field p-2.5 text-xs mb-4">
+        <button id="run-chunk" class="w-full py-2 bg-stripe font-heading text-white text-xs uppercase tracking-wider rounded-pulse">Execute Cut</button>
+      </div>
+      <div class="md:col-span-2 space-y-4">
+        <textarea id="chunk-input" placeholder="Paste data requiring contextual alignment arrays sizing here..." class="w-full h-32 pulse-field p-3 text-xs resize-none"></textarea>
+        <div id="chunk-container" class="space-y-2 max-h-40 overflow-y-auto pr-2"></div>
+      </div>
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const txtIn = document.getElementById('chunk-input');
+    const maxIn = document.getElementById('chunk-max');
+    const outBox = document.getElementById('chunk-container');
+
+    document.getElementById('run-chunk').addEventListener('click', () => {
+      outBox.innerHTML = ""; const txt = txtIn.value.trim(); const lim = parseInt(maxIn.value) || 2000;
+      if(!txt) return;
+      let i = 0; let p = 1;
+      while(i < txt.length) {
+        let end = i + lim; if(end < txt.length) { let sp = txt.lastIndexOf(' ', end); if(sp > i) end = sp; }
+        let segment = txt.substring(i, end).trim();
+        let div = document.createElement('div'); div.className = "bg-obsidian border border-darkBorder p-2 rounded-pulse text-[11px]";
+        div.innerHTML = `<span class="text-mint font-bold block mb-1">Part ${p}</span><p class="text-zinc-400">${segment}</p>`;
+        outBox.appendChild(div); i = end; p++;
+      }
+    });
+    document.getElementById('bookmarkBtn').addEventListener('click', () => alert("Slicing profiles configurations saved local payload dashboard state."));
+    document.getElementById('shareXBtn').addEventListener('click', () => window.open('https://twitter.com/intent/tweet', '_blank'));
+  </script>
+</body>
+</html>

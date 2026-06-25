@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline AI Text Edit Diff Analysis Tool | Toolsbunny</title>
+  <meta name="description" content="Compare text strings and locate prompt generation drift deltas dynamically. Zero data logs.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' }, fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, borderRadius: { 'pulse': '6px' } } }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    .pulse-panel { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-area { background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #D4D4D8; outline: none; resize: none; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-6xl pulse-panel p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="columns" class="text-mint w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">AI Output Content Diff Space</h1>
+      </div>
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div>
+        <label class="text-xs uppercase tracking-wider text-zinc-500 block mb-1">Original Baseline</label>
+        <textarea id="diff-orig" class="w-full h-32 pulse-area p-3 text-xs"></textarea>
+      </div>
+      <div>
+        <label class="text-xs uppercase tracking-wider text-zinc-500 block mb-1">AI Output Payload</label>
+        <textarea id="diff-mod" class="w-full h-32 pulse-area p-3 text-xs"></textarea>
+      </div>
+    </div>
+
+    <div id="diff-visualizer" class="w-full min-h-24 bg-obsidian border border-darkBorder rounded-pulse p-4 text-xs whitespace-pre-wrap leading-relaxed text-zinc-500">
+      Awaiting comparative matrix parameters inputs...
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const orig = document.getElementById('diff-orig');
+    const mod = document.getElementById('diff-mod');
+    const viz = document.getElementById('diff-visualizer');
+
+    function checkDiff() {
+      if(!orig.value || !mod.value) { viz.innerHTML = "Awaiting verification fields data assets..."; return; }
+      const oW = orig.value.split(/\s+/); const mW = mod.value.split(/\s+/);
+      let html = ""; let max = Math.max(oW.length, mW.length);
+      for(let i=0; i<max; i++) {
+        if(oW[i] === mW[i]) { html += `<span class="text-zinc-400">${oW[i]} </span>`; }
+        else {
+          if(oW[i]) html += `<span class="bg-red-950/40 text-red-400 line-through px-1 mr-1">${oW[i]}</span>`;
+          if(mW[i]) html += `<span class="bg-emerald-950/40 text-mint px-1 mr-1">${mW[i]}</span>`;
+        }
+      }
+      viz.innerHTML = html;
+    }
+    orig.addEventListener('input', checkDiff); mod.addEventListener('input', checkDiff);
+    document.getElementById('bookmarkBtn').addEventListener('click', () => alert("Saved calculation parameters dashboard view."));
+    document.getElementById('shareXBtn').addEventListener('click', () => window.open('https://twitter.com/intent/tweet', '_blank'));
+  </script>
+</body>
+</html>

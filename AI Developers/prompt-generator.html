@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A/B Prompt Engineering Variation Generator | Toolsbunny</title>
+  <meta name="description" content="Generate multi-framework prompt variants using Zero-Shot, Few-Shot, and Chain-of-Thought techniques locally.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' }, fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, borderRadius: { 'pulse': '6px' } } }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    .pulse-card { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-input { background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #D4D4D8; outline: none; }
+    .pulse-input:focus { border-color: #635BFF; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-6xl pulse-card p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="git-fork" class="text-stripe w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">Prompt Variation Framework Generator</h1>
+      </div>
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <div class="mb-6">
+      <label class="text-xs uppercase tracking-wider text-zinc-400 block mb-2">Your Raw Baseline Goal / Statement</label>
+      <input type="text" id="base-goal" placeholder="e.g., Write a promotional sales narrative framework..." class="w-full pulse-input p-3 text-sm">
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-obsidian border border-darkBorder rounded-pulse p-4 flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-heading font-bold text-stripe tracking-wider uppercase block mb-2">Few-Shot Template</span>
+          <textarea id="v1-out" readonly class="w-full h-40 bg-void border border-darkBorder rounded-pulse p-2 text-xs text-zinc-300 resize-none outline-none"></textarea>
+        </div>
+        <button id="btn-v1" class="mt-3 w-full py-1.5 bg-zinc-900 border border-darkBorder text-zinc-400 text-xs rounded-pulse">Copy</button>
+      </div>
+      <div class="bg-obsidian border border-darkBorder rounded-pulse p-4 flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-heading font-bold text-mint tracking-wider uppercase block mb-2">Chain-of-Thought</span>
+          <textarea id="v2-out" readonly class="w-full h-40 bg-void border border-darkBorder rounded-pulse p-2 text-xs text-zinc-300 resize-none outline-none"></textarea>
+        </div>
+        <button id="btn-v2" class="mt-3 w-full py-1.5 bg-zinc-900 border border-darkBorder text-zinc-400 text-xs rounded-pulse">Copy</button>
+      </div>
+      <div class="bg-obsidian border border-darkBorder rounded-pulse p-4 flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-heading font-bold text-white tracking-wider uppercase block mb-2">Roleplay Anchor</span>
+          <textarea id="v3-out" readonly class="w-full h-40 bg-void border border-darkBorder rounded-pulse p-2 text-xs text-zinc-300 resize-none outline-none"></textarea>
+        </div>
+        <button id="btn-v3" class="mt-3 w-full py-1.5 bg-zinc-900 border border-darkBorder text-zinc-400 text-xs rounded-pulse">Copy</button>
+      </div>
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const base = document.getElementById('base-goal');
+    const v1 = document.getElementById('v1-out');
+    const v2 = document.getElementById('v2-out');
+    const v3 = document.getElementById('v3-out');
+
+    base.addEventListener('input', () => {
+      const val = base.value.trim();
+      if(!val) { v1.value = ''; v2.value = ''; v3.value = ''; return; }
+      v1.value = `Input Context Pattern:\nInput: [Example]\nOutput: [Target]\n\nInput: ${val}\nOutput:`;
+      v2.value = `Break down your deployment step-by-step prior to rendering conclusion insights.\n\nTask: ${val}`;
+      v3.value = `Act as an elite engineering subject specialist. Provide resolution for:\n\nObjective: ${val}`;
+    });
+
+    document.getElementById('btn-v1').addEventListener('click', () => navigator.clipboard.writeText(v1.value));
+    document.getElementById('btn-v2').addEventListener('click', () => navigator.clipboard.writeText(v2.value));
+    document.getElementById('btn-v3').addEventListener('click', () => navigator.clipboard.writeText(v3.value));
+    document.getElementById('bookmarkBtn').addEventListener('click', () => alert("Bookmarked workflow splitter configuration framework!"));
+    document.getElementById('shareXBtn').addEventListener('click', () => window.open(`https://twitter.com/intent/tweet?text=Prompt%20Splitter`, '_blank'));
+  </script>
+</body>
+</html>

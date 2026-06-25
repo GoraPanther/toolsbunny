@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Parameter Prompt Cheat-Sheet Engine | Toolsbunny</title>
+  <meta name="description" content="Searchable offline indexing table directory mapping core LLM parameters and fine-tuning schema operational configurations.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' }, fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, borderRadius: { 'pulse': '6px' } } }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    .pulse-shell-wrapper { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-search { background-color: #080808; border: 1px solid #2A2A35; color: #E4E4E7; outline: none; border-radius: 6px; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-4xl pulse-shell-wrapper p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4 mb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="search" class="text-stripe w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">System Parameter Cheat Sheet</h1>
+      </div>
+      <input type="text" id="term-search" placeholder="Filter variables array..." class="pulse-search p-2 text-xs">
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="sheet-wrapper">
+      <div class="p-3 bg-obsidian border border-darkBorder rounded-pulse node-item" data-tag="temperature">
+        <span class="text-xs font-bold text-mint font-heading uppercase block">temperature</span>
+        <span class="text-[11px] text-zinc-400 block mt-1">Controls token randomization selection logic trees. Range allocation boundaries spanning [0.0 - 2.0].</span>
+      </div>
+      <div class="p-3 bg-obsidian border border-darkBorder rounded-pulse node-item" data-tag="top_p">
+        <span class="text-xs font-bold text-stripe font-heading uppercase block">top_p</span>
+        <span class="text-[11px] text-zinc-400 block mt-1">Nucleus programmatic context logic calculation boundary matrices thresholds mapping parameters.</span>
+      </div>
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const sb = document.getElementById('term-search'); const items = document.querySelectorAll('.node-item');
+    sb.addEventListener('input', () => {
+      let q = sb.value.toLowerCase().trim();
+      items.forEach(it => {
+        let tag = it.getAttribute('data-tag'); if(tag.includes(q)) it.style.display="block"; else it.style.display="none";
+      });
+    });
+    document.getElementById('bookmarkBtn').addEventListener('click', () => alert("Index structural reference dashboard map bookmarks storage allocated."));
+    document.getElementById('shareXBtn').addEventListener('click', () => window.open('https://twitter.com/intent/tweet', '_blank'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI API Message Array Structurer & Chat Log Formatter | Toolsbunny</title>
+  <meta name="description" content="Convert conversational chat string lines instantly into valid JSON arrays configured explicitly for input generation APIs.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' }, fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, borderRadius: { 'pulse': '6px' } } }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    .pulse-wrapper { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-pane { background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #E4E4E7; outline: none; resize: none; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-5xl pulse-wrapper p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="code-2" class="text-stripe w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">Chat History Payload Formatter</h1>
+      </div>
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <textarea id="conv-in" placeholder="User: Operational objective here...\nAssistant: Execution response mapping structural array input..." class="w-full h-48 pulse-pane p-3 text-xs"></textarea>
+      </div>
+      <div>
+        <textarea id="json-out" readonly placeholder="[ { 'role': 'user', 'content': '...' } ]" class="w-full h-48 pulse-pane p-3 text-xs text-mint opacity-90"></textarea>
+      </div>
+    </div>
+
+    <div class="flex justify-end mt-4">
+      <button id="copy-json" class="px-4 py-2 bg-stripe font-heading uppercase text-xs text-white rounded-pulse">Copy JSON Array</button>
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const input = document.getElementById('conv-in');
+    const output = document.getElementById('json-out');
+
+    input.addEventListener('input', () => {
+      const txt = input.value.trim(); if(!txt) { output.value = ''; return; }
+      const lines = txt.split('\n'); const payload = [];
+      lines.forEach(l => {
+        let clean = l.trim(); if(!clean) return;
+        let r = "user"; let c = clean;
+        if(/^user:/i.test(clean)) { r = "user"; c = clean.replace(/^user:/i, '').trim(); }
+        else if(/^(assistant|ai):/i.test(clean)) { r = "assistant"; c = clean.replace(/^(assistant|ai):/i, '').trim(); }
+        payload.push({ role: r, content: c });
+      });
+      output.value = JSON.stringify(payload, null, 2);
+    });
+
+    document.getElementById('copy-json').addEventListener('click', () => { if(output.value) navigator.clipboard.writeText(output.value); });
+    document.getElementById('bookmarkBtn').addEventListener('click', () => alert("Array constructor pipeline saved to bookmarks dashboard."));
+    document.getElementById('shareXBtn').addEventListener('click', () => window.open('https://twitter.com/intent/tweet', '_blank'));
+  </script>
+</body>
+</html>

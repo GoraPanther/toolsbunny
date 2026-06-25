@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Front-end Base64 Image Compression Engine for Multi-Modal APIs | Toolsbunny</title>
+  <meta name="description" content="Scale down input images to 512px limits instantly and compile pristine Base64 binary generation blocks locally.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' }, fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, borderRadius: { 'pulse': '6px' } } }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    .pulse-enclosure { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-drop { border: 2px dashed #2A2A35; background-color: #080808; border-radius: 6px; cursor: pointer; }
+    .pulse-string-box { background-color: #080808; border: 1px solid #2A2A35; color: #A1A1AA; font-family: monospace; outline: none; resize: none; border-radius: 6px; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-4xl pulse-enclosure p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="image" class="text-mint w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">Vision API Image Optimization Matrix</h1>
+      </div>
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div id="drop-zone" class="pulse-drop p-6 text-center flex flex-col items-center justify-center min-h-40">
+        <i data-lucide="upload" class="text-zinc-600 w-8 h-8 mb-2"></i>
+        <span class="text-xs text-zinc-400">Click to run system browser window image select canvas</span>
+        <input type="file" id="img-file" class="hidden" accept="image/*">
+      </div>
+      <div>
+        <textarea id="base64-out" readonly placeholder="Base64 dynamic payload arrays append here..." class="w-full h-32 pulse-string-box p-2 text-[10px]"></textarea>
+        <button id="copy-base" class="w-full mt-2 py-2 bg-stripe font-heading text-xs text-white uppercase rounded-pulse">Copy String</button>
+      </div>
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const zone = document.getElementById('drop-zone'); const fin = document.getElementById('img-file'); const out = document.getElementById('base64-out');
+    zone.addEventListener('click', () => fin.click());
+    fin.addEventListener('change', (e) => {
+      const f = e.target.files[0]; if(!f) return;
+      const r = new FileReader(); r.onload = (ev) => {
+        const img = new Image(); img.onload = () => {
+          const canvas = document.createElement('canvas'); let w = img.width; let h = img.height;
+          if(w > 512) { h *= 512/w; w = 512; } canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, w, h);
+          out.value = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
+        }; img.src = ev.target.result;
+      }; r.readAsDataURL(f);
+    });
+    document.getElementById('copy-base').addEventListener('click', () => { if(out.value) navigator.clipboard.writeText(out.value); });
+    document.getElementById('bookmarkBtn').addEventListener('click', () => alert("Vision canvas state compiler bookmarked successfully."));
+    document.getElementById('shareXBtn').addEventListener('click', () => window.open('https://twitter.com/intent/tweet', '_blank'));
+  </script>
+</body>
+</html>

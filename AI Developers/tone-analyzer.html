@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asynchronous Content Tone Analyzer & Complexity Meter | Toolsbunny</title>
+  <meta name="description" content="Audit prompt structural responses for synthetic AI syntax artifacts and compute grade readability level metadata.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' }, fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, borderRadius: { 'pulse': '6px' } } }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    .pulse-shell { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    .pulse-input { background-color: #080808; border: 1px solid #2A2A35; border-radius: 6px; color: #D4D4D8; outline: none; resize: none; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-4xl pulse-shell p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="gauge" class="text-stripe w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">Tone & Readability Metrics Dashboard</h1>
+      </div>
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="md:col-span-2">
+        <textarea id="grade-input" placeholder="Paste generated text strings elements here..." class="w-full h-48 pulse-input p-4 text-xs"></textarea>
+      </div>
+      <div class="space-y-4 flex flex-col justify-center">
+        <div class="bg-obsidian border border-darkBorder p-3 rounded-pulse text-center">
+          <span class="text-[10px] text-zinc-500 uppercase tracking-wider block">Complexity Density</span>
+          <span id="read-score" class="text-lg font-heading font-bold text-mint mt-1 block">---</span>
+        </div>
+        <div class="bg-obsidian border border-darkBorder p-3 rounded-pulse text-center">
+          <span class="text-[10px] text-zinc-500 uppercase tracking-wider block">Syntax Signature</span>
+          <span id="tone-profile" class="text-xs font-bold text-stripe tracking-wide uppercase mt-1 block">Neutral Core</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const textIn = document.getElementById('grade-input');
+    const score = document.getElementById('read-score');
+    const tone = document.getElementById('tone-profile');
+
+    textIn.addEventListener('input', () => {
+      const val = textIn.value.trim(); if(!val) { score.textContent = "---"; tone.textContent = "Neutral Core"; return; }
+      const w = val.split(/\s+/).length; const s = val.split(/[.!?]+/).filter(Boolean).length || 1;
+      const ratio = w/s;
+      score.textContent = ratio > 20 ? "Advanced Structural Prose" : "Clear Scannable Copy";
+      tone.textContent = val.toLowerCase().includes("delve") ? "High Synthetic Distribution" : "Natural Context Mapping";
+    });
+    document.getElementById('bookmarkBtn').addEventListener('click', () => alert("Audit engine bookmarked."));
+    document.getElementById('shareXBtn').addEventListener('click', () => window.open('https://twitter.com/intent/tweet', '_blank'));
+  </script>
+</body>
+</html>

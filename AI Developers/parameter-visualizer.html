@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive LLM Hyperparameter Curve Visualizer | Toolsbunny</title>
+  <meta name="description" content="Simulate how adjustments to system parameters alter generation text token distribution curves. Native canvas model.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { obsidian: '#080808', void: '#16161A', stripe: '#635BFF', mint: '#00FFC2', darkBorder: '#2A2A35' }, fontFamily: { heading: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, borderRadius: { 'pulse': '6px' } } }
+    }
+  </script>
+  <style>
+    body { font-family: 'JetBrains Mono', monospace; background-color: #080808; color: #E4E4E7; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+    .pulse-panel-card { background-color: #16161A; border: 1px solid #2A2A35; border-radius: 6px; }
+    #pulse-ad-slot { margin: 20px 0; min-height: 100px; background-color: #0b0b0d; border: 1px dashed #2a2a35; border-radius: 6px; display: flex; justify-content: center; align-items: center; }
+    .pulse-share-row { display: flex; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #2a2a35; }
+    .pulse-btn-share { background: none; border: none; color: #A1A1AA; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body class="p-4 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-4xl pulse-panel-card p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-darkBorder pb-4">
+      <div class="flex items-center gap-3">
+        <i data-lucide="sliders" class="text-stripe w-6 h-6"></i>
+        <h1 class="text-xl tracking-tight uppercase text-white">Hyperparameter Math Distribution Visualizer</h1>
+      </div>
+    </div>
+
+    <div id="pulse-ad-slot">
+      <span class="text-[10px] text-zinc-600 uppercase tracking-widest">Advertisement Placeholder</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-4">
+        <div class="flex justify-between text-xs uppercase text-zinc-400">
+          <span>Temperature Scale Factor</span>
+          <span id="temp-val" class="text-mint font-bold">0.7</span>
+        </div>
+        <input type="range" id="temp-range" min="0.1" max="2.0" step="0.1" value="0.7" class="w-full accent-stripe bg-obsidian border border-darkBorder h-2 rounded-full">
+        <div id="desc-box" class="p-3 bg-obsidian border border-darkBorder rounded-pulse text-xs text-zinc-400">Standard balanced structural configuration model profile logic.</div>
+      </div>
+      <div class="bg-obsidian border border-darkBorder rounded-pulse p-2 flex items-center justify-center h-32">
+        <canvas id="curve-cv" class="w-full h-full"></canvas>
+      </div>
+    </div>
+
+    <div class="pulse-share-row">
+      <button class="pulse-btn-share" id="bookmarkBtn">⭐ Bookmark Tool</button>
+      <button class="pulse-btn-share" id="shareXBtn">𝕏 Share on X</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const sl = document.getElementById('temp-range'); const val = document.getElementById('temp-val'); const desc = document.getElementById('desc-box');
+    const cv = document.getElementById('curve-cv'); const cx = cv.getContext('2d');
+    cv.width = cv.offsetWidth; cv.height = cv.offsetHeight;
+
+    function draw() {
+      const t = parseFloat(sl.value); val.textContent = t.toFixed(1);
+      cx.clearRect(0,0,cv.width,cv.height); cx.strokeStyle = '#635BFF'; cx.lineWidth = 2; cx.beginPath();
+      for(let i=0; i<cv.width; i++) {
+        let y = cv.height/2 + Math.sin(i * (t * 0.05)) * (cv.height/3);
+        if(i===0) cx.moveTo(i,y); else cx.lineTo(i,y);
+      } cx.stroke();
+      desc.textContent = t < 0.5 ? "Highly deterministic matrix pathways routing logic inputs." : "Creative chaotic exploration data generation parameters dynamic active vector logs.";
+    }
+    sl.addEventListener('input', draw); draw();
+    document.getElementById('bookmarkBtn').addEventListener('click', () => alert("Calibration template engine profiles cached to bookmarks index panel dashboard."));
+    document.getElementById('shareXBtn').addEventListener('click', () => window.open('https://twitter.com/intent/tweet', '_blank'));
+  </script>
+</body>
+</html>
