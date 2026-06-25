@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Fixed Header with Logo
+    // Fixed Header: Logo only, no text, increased size
     const headerHTML = `
-    <nav style="position: fixed !important; top: 0; left: 0; width: 100%; z-index: 9999;" class="bg-black/80 backdrop-blur-md py-6 px-10 flex items-center justify-between border-b border-zinc-900">
-        <a href="/" class="font-bold text-white tracking-widest flex items-center gap-3">
-            <img src="https://github.com/ToolsBunny/toolsbunny/blob/main/logo.png?raw=true" class="w-8 h-8 object-contain" alt="Logo"> 
-            TOOLSBUNNY
+    <nav style="position: fixed !important; top: 0; left: 0; width: 100%; z-index: 9999;" class="bg-black/80 backdrop-blur-md py-3 px-10 flex items-center justify-between border-b border-zinc-900">
+        <a href="/" class="flex items-center">
+            <img src="https://github.com/ToolsBunny/toolsbunny/blob/main/logo.png?raw=true" class="h-12 w-auto object-contain" alt="Toolsbunny"> 
         </a>
         <div class="hidden md:flex gap-8 text-xs text-zinc-400">
             <a href="/#ai" class="hover:text-white">AI TOOLS</a>
@@ -14,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </nav>
     <div style="height: 80px;"></div>`;
 
-    // 2. Footer with Bookmark and Share
+    // Footer
     const footerHTML = `
     <footer class="py-10 mt-10 border-t border-zinc-900 text-center text-zinc-600 text-[10px] uppercase tracking-widest">
         <div class="mb-6 flex justify-center gap-8">
