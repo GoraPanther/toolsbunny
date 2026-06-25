@@ -1,9 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const navbarHTML = `
-<nav class="bg-[#16161A] border-b border-[#2A2A35] py-4 px-6 fixed top-0 left-0 w-full z-50 flex items-center justify-between">
-    </nav>
-<div class="h-[68px]"></div> 
-`;
+    const navbarHTML = `
+    <nav class="bg-[#16161A] border-b border-[#2A2A35] py-4 px-6 fixed top-0 w-full z-50 flex items-center justify-between">
         <a href="/" class="flex items-center gap-2 font-['Space_Grotesk'] font-bold text-white text-lg tracking-tight">
             🐰 TOOLSBUNNY
         </a>
